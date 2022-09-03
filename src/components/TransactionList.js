@@ -5,7 +5,7 @@ import "../index.css"
 const TransactionList = () => {
 
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center'>
         <h3>History</h3>
         {/* <ul className="">
           <li className="">

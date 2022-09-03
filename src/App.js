@@ -10,7 +10,7 @@ import AddTransaction from './components/AddTransaction'
 const App = () => {
   return (
     // 'w-screen h-screen flex items-center justify-center '
-    <div className="w-screen h-auto flex flex-col bg-primary">
+    <div className="w-screen h-auto flex flex-col bg-gradient-to-b from-green-100 to-green-300">
         <MainHeader />
         <div className='w-screen pt-20 mt-10 flex flex-col items-center justify-center gap-'>
           <Header />
