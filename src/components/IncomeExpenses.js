@@ -1,5 +1,15 @@
 import React, {useState} from 'react'
 
+import { useQuery, gql, useMutation } from "@apollo/client";
+
+const EXPENSES = gql`
+  query{
+  me {
+    expensesValue,
+    incomeValue
+  }
+}
+`
 
 const IncomeExpenses = () => {
   const [Income, setIncome] = useState(2999.00)

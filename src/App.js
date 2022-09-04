@@ -14,7 +14,7 @@ const App = () => {
   return (
     // 'w-screen h-screen flex items-center justify-center '
     <div className="w-screen h-auto flex flex-col ">
-        <MainHeader />
+        <MainHeader user={user} setuser={setuser}  />
         {user ? (
           <div className='w-screen pt-20 mt-10 flex flex-col items-center justify-center bg-gradient-to-b from-green-100 to-green-300'>
             <Header />
@@ -34,7 +34,7 @@ const App = () => {
             </div>
           </div>
         )
-        : <LandingPage />}
+        : <LandingPage user={user} setuser={setuser} />}
     </div>
  )
 }

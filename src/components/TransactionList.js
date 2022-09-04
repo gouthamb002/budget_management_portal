@@ -1,8 +1,20 @@
 import React from 'react'
 import 'tw-elements'
 import "../index.css"
+import { useQuery, gql, useMutation } from "@apollo/client";
+
+const EXPENSES = gql`
+  query{
+  me {
+    expensesDate,
+    expensesName,
+    expensesValue
+  }
+}
+`
 
 const TransactionList = () => {
+  const {data, loading, error} = useQuery(EXPENSES)
 
   return (
     <div className='flex flex-col items-center justify-center'>
@@ -31,7 +43,24 @@ const TransactionList = () => {
             ></button>
           </div>
           <div class="carousel-inner w-50 overflow-hidden">
-            <div class="carousel-item active float-left w-50">
+            {
+              data.me.expensesValue.map(u => {
+                return(
+                  <div class="carousel-item active float-left w-50">
+              <img
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
+                class="block w-50"
+                alt="..."
+              />
+              <div class="carousel-caption hidden md:block absolute text-center">
+                <h5 class="text-xl">{u}</h5>
+                <p>{data.me.expensesName(data.me.expensesValue.indexOf(u))} - {data.me.expensesDate(data.me.expensesValue.indexOf(u))}</p>
+              </div>
+            </div>      
+                )
+              })
+            }
+            {/* <div class="carousel-item active float-left w-50">
               <img
                 src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
                 class="block w-50"
@@ -63,7 +92,7 @@ const TransactionList = () => {
                 <h5 class="text-xl">Third slide label</h5>
                 <p>Some representative placeholder content for the third slide.</p>
               </div>
-            </div>
+            </div> */}
           </div>
           <button
             class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"

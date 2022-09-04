@@ -1,8 +1,24 @@
 import React, {useState} from 'react'
 import "../index.css"
 import { Link } from 'react-router-dom'
+import { useQuery, gql, useMutation } from "@apollo/client";
 
-const MainHeader = () => {
+const REGISTER = gql`
+    mutation($phone: String!, $password: String!, $email: String!, $name: String!){
+  createUser(phone: $phone, password: $password, email: $email, name: $name)
+}
+`
+
+const LOGIN = gql`
+  mutation($password: String!, $email: String!){
+  login(password: $password, email: $email) 
+}
+`
+
+const MainHeader = ({user, setUser}) => {
+    const [registerMutation, { data, loading, error }] = useMutation(REGISTER);
+    const [loginMutation, { data: login, loading: loginLoad, error: loginError }] = useMutation(LOGIN);
+    
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
   const [ShowModal, setShowModal] = useState(false)
@@ -58,9 +74,25 @@ const MainHeader = () => {
                                                 </div>
                                                 <a href="#" className="text-sm text-blue-700 hover:underline dark:text-blue-500" onClick={() => setShowModal(false)}> Lost Password?</a>
                                             </div>
-                                            <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => setShowModal(false)}>Login to your account</button>
+                                            <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={async () => {
+                                                setShowModal(false)
+                                                 try{
+                                                    await login({variables: {email: Email, password: Password}})
+                                                    if(login)
+                                                    {
+                                                        setUser(True)
+                                                    }
+                                                    else{
+                                                        window.alert(loginError)
+                                                    }
+                                                 }catch(err){
+                                                    window.alert(err.message)
+                                                 }
+                                            }}>Login to your account</button>
                                             <div className="text-sm font-medium text-gray-500 dark:text-gray-500">
-                                                Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500" onClick={() => setShowModal(false)}>Create account</a>
+                                                Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500" onClick={() => {
+                                                    setShowModal(true)
+                                                }}>Create account</a>
                                             </div>
                                         </form>
                                         </div>
