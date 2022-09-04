@@ -9,7 +9,7 @@ import LandingPage from './components/LandingPage'
 
 
 const App = () => {
-  const [user, setuser] = useState(true)
+  const [user, setuser] = useState(false)
 
   return (
     // 'w-screen h-screen flex items-center justify-center '
