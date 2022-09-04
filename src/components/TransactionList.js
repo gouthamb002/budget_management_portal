@@ -7,11 +7,6 @@ const TransactionList = () => {
   return (
     <div className='flex flex-col items-center justify-center'>
         <h3>History</h3>
-        {/* <ul className="">
-          <li className="">
-            Cash <span>400 </span><button className="delete-btn">x</button>
-          </li>
-        </ul> */}
         <div id="carouselExampleCaptions" class="carousel slide relative w-30" data-bs-ride="carousel">
           <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
             <button
